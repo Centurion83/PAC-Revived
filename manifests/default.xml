@@ -700,7 +700,7 @@
   <!-- PACROM additions -->
   <project path="vendor/lineage" name="PACROM/aosp_vendor_lineage" revision="master" />
   <project path="android" name="PACROM/android" revision="master" />
-  <project path="packages/apps/Settings" name="PACROM/packages_apps_Settings" revision="master" />
+
   <project path="device/google/marlin" name="PACROM/device_google_marlin" revision="master" />
   <project path="kernel/google/marlin" name="PACROM/kernel_google_marlin" revision="master" />
   <project path="vendor/pac" name="PACROM/aosp_vendor_pac" revision="master" />
