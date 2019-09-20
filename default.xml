@@ -4,21 +4,17 @@
   <remote  name="aosp"
            fetch="https://android.googlesource.com"
            review="android-review.googlesource.com"
-           revision="refs/tags/android-6.0.1_r74" />
+           revision="refs/tags/android-9.0.0_r46" />
 
-  <remote  name="cm"
-           fetch="https://github.com/CyanogenMod"
-           review="review.cyanogenmod.org"
-           revision="refs/heads/cm-13.0" />
+  <remote  name="los"
+           fetch="https://github.com/LineageOS"
+           review="review.lineageos.org"
+           revision="refs/heads/lineage-16.0" />
 
   <remote  name="github"
            fetch="https://github.com" />
 
-  <remote  name="omni"
-           fetch="https://github.com/omnirom"
-           review="gerrit.omnirom.org"
-           revision="refs/heads/android-6.0" />
-
+  
   <remote  name="pac"
            fetch="https://github.com/PAC-ROM"
            review="review.pac-rom.com" />
@@ -36,7 +32,27 @@
            sync-j="8" />
 
 <!-- BEGIN AOSP -->
-  <project path="cts" name="platform/cts" groups="cts,pdk-cw-fs,pdk-fs" revision="marshmallow-cts-release" remote="aosp" />
+<project path="build/make" name="LineageOS/android_build" groups="pdk" >
+    <copyfile src="core/root.mk" dest="Makefile" />
+    <linkfile src="CleanSpec.mk" dest="build/CleanSpec.mk" />
+    <linkfile src="buildspec.mk.default" dest="build/buildspec.mk.default" />
+    <linkfile src="core" dest="build/core" />
+    <linkfile src="envsetup.sh" dest="build/envsetup.sh" />
+    <linkfile src="target" dest="build/target" />
+    <linkfile src="tools" dest="build/tools" />
+  </project> 
+  <project path="build/blueprint" name="platform/build/blueprint" groups="pdk,tradefed" remote="aosp" />
+  <project path="build/kati" name="LineageOS/android_build_kati" groups="pdk,tradefed" />
+  <project path="build/soong" name="LineageOS/android_build_soong" groups="pdk,tradefed" >
+    <linkfile src="root.bp" dest="Android.bp" />
+    <linkfile src="bootstrap.bash" dest="bootstrap.bash" />
+  </project>
+  <project path="art" name="LineageOS/android_art" groups="pdk" />
+  <project path="bionic" name="LineageOS/android_bionic" groups="pdk" />
+  <project path="bootable/recovery" name="LineageOS/android_bootable_recovery" groups="pdk" />
+  <project path="compatibility/cdd" name="platform/compatibility/cdd" groups="pdk" remote="aosp" />
+  <project path="cts" name="platform/cts" groups="cts,pdk-cw-fs,pdk-fs" revision="pie-cts-release" remote="aosp" />
+  <project path="dalvik" name="LineageOS/android_dalvik" groups="pdk-cw-fs,pdk-fs" />
   <project path="developers/build" name="platform/developers/build" remote="aosp" />
   <project path="developers/samples/android" name="platform/developers/samples/android" remote="aosp" />
   <project path="device/generic/mini-emulator-arm64" name="device/generic/mini-emulator-arm64" groups="pdk" remote="aosp" />
@@ -544,5 +560,8 @@
 <!-- BEGIN SPLIT-SCREEN -->
   <project path="device/qcom/sepolicy" name="android_device_qcom_sepolicy" remote="ss" />
 <!-- END SPLIT-SCREEN -->
+ 
+<include name="manifests/pacrom.xml" />
+<include name="snippets/lineage.xml" />
 
 </manifest>
